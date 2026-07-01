@@ -4,6 +4,8 @@ Python-first Kaggle / Google AI Agents capstone app for turning one restaurant c
 
 The target user is an independent restaurant owner or manager who needs to promote a dish, offer, or local campaign without hiring a marketing team.
 
+Public submission repo: https://github.com/ssyan110/ai-marketing-ops-agent
+
 ## Current Submission Cut
 
 This MVP is intentionally deterministic and keyless: it runs locally, parses a text brief, generates campaign assets, shows guardrail warnings and evaluation scores, and exports the result as Markdown.

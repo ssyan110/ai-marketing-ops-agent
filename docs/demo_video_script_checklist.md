@@ -62,6 +62,7 @@ Show the score panel, guardrails, assumptions, and Markdown export.
 - Tests pass locally.
 - README run commands work.
 - Video shows a real local run or real hosted URL.
+- Project link uses `https://github.com/ssyan110/ai-marketing-ops-agent`.
 - Writeup links are updated with the actual video and project URLs.
 - No public-link placeholders are described as complete.
 - No secrets are committed.

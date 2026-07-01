@@ -17,7 +17,7 @@ The submission demo should use a restaurant scenario such as:
 ## 3. Demo Links
 
 - Video demo: TODO - add real video URL after recording.
-- Project/demo link: TODO - add public repo, Kaggle notebook, or hosted app URL only after it exists.
+- Project/demo link: https://github.com/ssyan110/ai-marketing-ops-agent
 - Local run path: clone the repo, install requirements, run tests, then start FastAPI with the README commands.
 
 ## 4. Agent Architecture

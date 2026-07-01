@@ -15,8 +15,8 @@ AI Marketing Ops Agent helps independent restaurant owners and managers turn one
 | Writeup under 2,500 words | Draft ready | See `docs/final_writeup_draft.md`; add final public links before submission. |
 | Cover image | Local asset ready | Use `docs/assets/kaggle_cover.svg` or export it to PNG before upload. |
 | Video under 5 minutes | Script/checklist ready | See `docs/demo_video_script_checklist.md`; record against local app unless a hosted URL exists. |
-| Public project link | Blocked | Do not claim a hosted app until deployed or published as a public runnable repo/notebook. |
-| Public codebase | Needs publish | Local README/docs/tests are prepared, but the repo still needs to be made public or linked from Kaggle. |
+| Public project link | Ready | Use https://github.com/ssyan110/ai-marketing-ops-agent unless a hosted demo is added later. |
+| Public codebase | Ready | Public GitHub repo: https://github.com/ssyan110/ai-marketing-ops-agent |
 
 ## Rubric Strategy
 
@@ -67,10 +67,10 @@ AI Marketing Ops Agent helps independent restaurant owners and managers turn one
 
 ## Next Build Slice
 
-1. Publish a public repo or hosted runnable demo and paste the real URL into the writeup.
-2. Record the demo video using the checklist in `docs/demo_video_script_checklist.md`.
-3. Export `docs/assets/kaggle_cover.svg` to PNG if Kaggle rejects SVG upload.
-4. If time remains, add a hosted demo, but do not block submission on deployment if the public repo is runnable.
+1. Record the demo video using the checklist in `docs/demo_video_script_checklist.md`.
+2. Upload the video to YouTube and paste the real URL into the writeup.
+3. Upload `docs/assets/kaggle_cover.png` as the cover image.
+4. If time remains, add a hosted demo, but do not block submission on deployment because the public repo is runnable.
 
 ## Honest Current Scope
 
@@ -84,6 +84,5 @@ Completed in the current local app:
 Do not claim as completed yet:
 
 - Hosted deployment.
-- Public code URL.
 - Image/menu upload or vision analysis.
 - Runtime Gemini / Google ADK integration.
