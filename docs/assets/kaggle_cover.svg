@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">AI Marketing Ops Agent Kaggle cover</title>
+  <desc id="desc">Restaurant campaign workbench cover image showing brief, insight, assets, calendar, evaluation, and export workflow.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#111827"/>
+      <stop offset="0.58" stop-color="#1f2937"/>
+      <stop offset="1" stop-color="#f5f1e8"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" x2="1">
+      <stop offset="0" stop-color="#f3c969"/>
+      <stop offset="1" stop-color="#e28b3f"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#020617" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect x="0" y="0" width="1600" height="900" fill="#0f172a" opacity="0.18"/>
+  <g transform="translate(84 118)">
+    <text x="0" y="60" fill="#fff7ed" font-family="Georgia, 'Times New Roman', serif" font-size="68" font-weight="700">AI Marketing</text>
+    <text x="0" y="132" fill="url(#gold)" font-family="Georgia, 'Times New Roman', serif" font-size="68" font-weight="700">Ops Agent</text>
+    <line x1="0" y1="174" x2="410" y2="174" stroke="#f3c969" stroke-width="3"/>
+    <text x="0" y="226" fill="#fff7ed" font-family="Avenir, Helvetica, Arial, sans-serif" font-size="28">Restaurant Campaign Workbench</text>
+    <g fill="none" stroke="#f3c969" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 300)">
+      <circle cx="30" cy="30" r="24"/>
+      <path d="M30 18v16l12 8"/>
+      <rect x="132" y="8" width="52" height="48" rx="6"/>
+      <path d="M132 22h52M146 0v16M170 0v16"/>
+      <path d="M264 56v-22a28 28 0 0 1 56 0v22M264 56h56"/>
+      <path d="M396 56V18M396 18l-18 18M396 18l18 18M364 56h72"/>
+    </g>
+    <g fill="#fff7ed" font-family="Avenir, Helvetica, Arial, sans-serif" font-size="19" transform="translate(0 392)">
+      <text x="0" y="0">Brief</text>
+      <text x="124" y="0">Calendar</text>
+      <text x="252" y="0">Assets</text>
+      <text x="366" y="0">Score</text>
+    </g>
+  </g>
+  <g filter="url(#shadow)" transform="translate(590 135)">
+    <rect x="0" y="0" width="810" height="560" rx="22" fill="#111827" stroke="#f3c969" stroke-width="3"/>
+    <rect x="34" y="42" width="742" height="90" rx="12" fill="#1f2937"/>
+    <text x="58" y="84" fill="#fff7ed" font-family="Avenir, Helvetica, Arial, sans-serif" font-size="26" font-weight="700">Campaign Workflow</text>
+    <g font-family="Avenir, Helvetica, Arial, sans-serif">
+      <g transform="translate(54 168)">
+        <rect width="122" height="104" rx="10" fill="#273244"/>
+        <text x="61" y="42" text-anchor="middle" fill="#fff7ed" font-size="20" font-weight="700">Brief</text>
+        <text x="61" y="70" text-anchor="middle" fill="#d1d5db" font-size="13">Dish, audience, goal</text>
+      </g>
+      <g transform="translate(196 168)">
+        <rect width="122" height="104" rx="10" fill="#273244"/>
+        <text x="61" y="42" text-anchor="middle" fill="#fff7ed" font-size="20" font-weight="700">Insight</text>
+        <text x="61" y="70" text-anchor="middle" fill="#d1d5db" font-size="13">Pain, objections</text>
+      </g>
+      <g transform="translate(338 168)">
+        <rect width="122" height="104" rx="10" fill="#273244"/>
+        <text x="61" y="42" text-anchor="middle" fill="#fff7ed" font-size="20" font-weight="700">Assets</text>
+        <text x="61" y="70" text-anchor="middle" fill="#d1d5db" font-size="13">Posts, shots, CTA</text>
+      </g>
+      <g transform="translate(480 168)">
+        <rect width="122" height="104" rx="10" fill="#273244"/>
+        <text x="61" y="42" text-anchor="middle" fill="#fff7ed" font-size="20" font-weight="700">Calendar</text>
+        <text x="61" y="70" text-anchor="middle" fill="#d1d5db" font-size="13">Channel plan</text>
+      </g>
+      <g transform="translate(622 168)">
+        <rect width="122" height="104" rx="10" fill="#273244"/>
+        <text x="61" y="42" text-anchor="middle" fill="#fff7ed" font-size="20" font-weight="700">Evaluate</text>
+        <text x="61" y="70" text-anchor="middle" fill="#d1d5db" font-size="13">Score, guardrails</text>
+      </g>
+    </g>
+    <g transform="translate(54 318)" font-family="Avenir, Helvetica, Arial, sans-serif">
+      <rect width="318" height="164" rx="14" fill="#f8fafc"/>
+      <text x="26" y="42" fill="#111827" font-size="24" font-weight="700">Corner Kitchen</text>
+      <text x="26" y="76" fill="#374151" font-size="18">Spicy crispy chicken mac</text>
+      <text x="26" y="108" fill="#374151" font-size="18">Audience: office workers nearby</text>
+      <text x="26" y="140" fill="#374151" font-size="18">Goal: more visits this week</text>
+    </g>
+    <g transform="translate(414 318)" font-family="Avenir, Helvetica, Arial, sans-serif">
+      <rect width="330" height="164" rx="14" fill="#f8fafc"/>
+      <text x="24" y="40" fill="#111827" font-size="22" font-weight="700">Short Calendar</text>
+      <text x="24" y="76" fill="#374151" font-size="17">Day 1: Hero dish post</text>
+      <text x="24" y="106" fill="#374151" font-size="17">Day 2: Prep reel</text>
+      <text x="24" y="136" fill="#374151" font-size="17">Day 4: Local reminder</text>
+    </g>
+  </g>
+  <g transform="translate(110 678)">
+    <ellipse cx="180" cy="70" rx="176" ry="42" fill="#0f172a" opacity="0.24"/>
+    <rect x="24" y="0" width="300" height="88" rx="44" fill="#f4d29b"/>
+    <ellipse cx="174" cy="44" rx="122" ry="26" fill="#f8fafc"/>
+    <circle cx="126" cy="38" r="28" fill="#b45309"/>
+    <circle cx="166" cy="48" r="34" fill="#d97706"/>
+    <circle cx="212" cy="38" r="28" fill="#92400e"/>
+    <circle cx="158" cy="45" r="6" fill="#22c55e"/>
+    <circle cx="202" cy="34" r="5" fill="#22c55e"/>
+  </g>
+</svg>

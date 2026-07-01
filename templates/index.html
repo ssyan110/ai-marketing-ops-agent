@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AI Marketing Ops Agent</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{{ url_for('static', path='/app.css') }}">
+  </head>
+  <body class="bg-stone-50 text-zinc-950">
+    <main class="min-h-[100dvh]">
+      <section class="mx-auto max-w-7xl px-5 py-8 lg:px-8">
+        <header class="mb-8 flex flex-col gap-4 border-b border-zinc-200 pb-6 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p class="text-sm font-medium text-emerald-700">Kaggle Capstone Workbench</p>
+            <h1 class="mt-2 max-w-4xl text-4xl font-semibold tracking-tight md:text-6xl">AI Marketing Ops Agent</h1>
+            <p class="mt-4 max-w-2xl text-base leading-7 text-zinc-600">Turn one messy business brief into a practical campaign pack, quality score, and publishing checklist.</p>
+          </div>
+          <div class="rounded-full border border-zinc-200 bg-white px-4 py-2 text-sm text-zinc-600 shadow-sm">Python FastAPI MVP</div>
+        </header>
+
+        <div class="grid gap-5 lg:grid-cols-[380px_1fr]">
+          <form method="post" action="/generate" class="rounded-lg border border-zinc-200 bg-white p-5 shadow-sm">
+            <h2 class="text-lg font-semibold">Campaign input</h2>
+            <div class="mt-5 grid gap-4">
+              {% set defaults = campaign if campaign is defined else None %}
+              {% set brief_default = defaults.source_notes if defaults and defaults.source_notes else 'Audience: office workers and nearby apartment residents. Offer: mac and cheese with spicy crispy chicken. Goal: increase lunch and dinner visits this week. Channels: Facebook, Instagram/Reels, Zalo, Google Business Profile. Constraint: low budget, no discount race, avoid guaranteed traffic claims.' %}
+              <label class="grid gap-2 text-sm font-medium">Business name
+                <input name="business_name" required value="{{ defaults.business_name if defaults else 'Corner Kitchen' }}" class="rounded-md border border-zinc-300 px-3 py-2 outline-none ring-emerald-600 transition focus:ring-2">
+              </label>
+              <label class="grid gap-2 text-sm font-medium">Business brief
+                <textarea name="business_brief" required class="min-h-44 rounded-md border border-zinc-300 px-3 py-2 outline-none ring-emerald-600 transition focus:ring-2">{{ brief_default }}</textarea>
+              </label>
+              <button class="rounded-md bg-zinc-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-emerald-800 active:translate-y-px">Generate campaign pack</button>
+            </div>
+          </form>
+
+          <section class="grid gap-5">
+            <div class="rounded-lg border border-zinc-200 bg-white p-5 shadow-sm">
+              <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                <div>
+                  <h2 class="text-lg font-semibold">Agent workflow</h2>
+                  <p class="text-sm text-zinc-600">Brief parsing, campaign planning, asset guidance, calendar, evaluation.</p>
+                </div>
+                {% if pack %}
+                  <span class="rounded-md bg-emerald-50 px-3 py-1 text-sm font-medium text-emerald-800">Generated</span>
+                {% else %}
+                  <span class="rounded-md bg-zinc-100 px-3 py-1 text-sm font-medium text-zinc-600">Ready</span>
+                {% endif %}
+              </div>
+            </div>
+
+            {% if pack %}
+              <div class="grid gap-5 xl:grid-cols-2">
+                <article class="rounded-lg border border-zinc-200 bg-white p-5 shadow-sm">
+                  <h3 class="font-semibold">Strategy</h3>
+                  <p class="mt-3 text-2xl font-semibold leading-tight">{{ pack.strategy.hook }}</p>
+                  <p class="mt-4 text-sm leading-6 text-zinc-600">{{ pack.strategy.positioning }}</p>
+                  <ul class="mt-4 grid gap-2 text-sm text-zinc-700">
+                    {% for item in pack.strategy.message_hierarchy %}
+                      <li class="rounded-md bg-stone-50 px-3 py-2">{{ item }}</li>
+                    {% endfor %}
+                  </ul>
+                </article>
+
+                <article class="rounded-lg border border-zinc-200 bg-white p-5 shadow-sm">
+                  <h3 class="font-semibold">Evaluation</h3>
+                  <div class="mt-4 flex items-end gap-3">
+                    <span class="text-5xl font-semibold">{{ pack.evaluation.total_score }}</span>
+                    <span class="pb-2 text-sm text-zinc-600">total score</span>
+                  </div>
+                  <dl class="mt-4 grid gap-2 text-sm">
+                    {% for key, value in pack.evaluation.scores.items() %}
+                      <div class="flex justify-between rounded-md bg-stone-50 px-3 py-2">
+                        <dt class="capitalize text-zinc-600">{{ key.replace('_', ' ') }}</dt>
+                        <dd class="font-semibold">{{ value }}/5</dd>
+                      </div>
+                    {% endfor %}
+                  </dl>
+                </article>
+              </div>
+
+              <article class="rounded-lg border border-zinc-200 bg-white p-5 shadow-sm">
+                <h3 class="font-semibold">Audience insight</h3>
+                <div class="mt-4 grid gap-4 md:grid-cols-2">
+                  <section>
+                    <h4 class="text-sm font-semibold text-zinc-700">Pain points</h4>
+                    <ul class="mt-2 grid gap-2 text-sm text-zinc-700">
+                      {% for item in pack.audience.pain_points %}
+                        <li class="rounded-md bg-stone-50 px-3 py-2">{{ item }}</li>
+                      {% endfor %}
+                    </ul>
+                  </section>
+                  <section>
+                    <h4 class="text-sm font-semibold text-zinc-700">Objections</h4>
+                    <ul class="mt-2 grid gap-2 text-sm text-zinc-700">
+                      {% for item in pack.audience.objections %}
+                        <li class="rounded-md bg-stone-50 px-3 py-2">{{ item }}</li>
+                      {% endfor %}
+                    </ul>
+                  </section>
+                  <section>
+                    <h4 class="text-sm font-semibold text-zinc-700">Motivations</h4>
+                    <ul class="mt-2 grid gap-2 text-sm text-zinc-700">
+                      {% for item in pack.audience.motivations %}
+                        <li class="rounded-md bg-stone-50 px-3 py-2">{{ item }}</li>
+                      {% endfor %}
+                    </ul>
+                  </section>
+                  <section>
+                    <h4 class="text-sm font-semibold text-zinc-700">Desired outcomes</h4>
+                    <ul class="mt-2 grid gap-2 text-sm text-zinc-700">
+                      {% for item in pack.audience.desired_outcomes %}
+                        <li class="rounded-md bg-stone-50 px-3 py-2">{{ item }}</li>
+                      {% endfor %}
+                    </ul>
+                  </section>
+                </div>
+              </article>
+
+              <article class="rounded-lg border border-zinc-200 bg-white p-5 shadow-sm">
+                <h3 class="font-semibold">LinkedIn post</h3>
+                <pre class="mt-4 whitespace-pre-wrap rounded-md bg-zinc-950 p-5 text-sm leading-6 text-zinc-50">{{ pack.content.linkedin_post }}</pre>
+              </article>
+
+              <div class="grid gap-5 xl:grid-cols-2">
+                <article class="rounded-lg border border-zinc-200 bg-white p-5 shadow-sm">
+                  <h3 class="font-semibold">Content types</h3>
+                  <ul class="mt-4 grid gap-2 text-sm text-zinc-700">
+                    {% for item in pack.content.content_types %}
+                      <li class="rounded-md bg-stone-50 px-3 py-2">{{ item }}</li>
+                    {% endfor %}
+                  </ul>
+                </article>
+                <article class="rounded-lg border border-zinc-200 bg-white p-5 shadow-sm">
+                  <h3 class="font-semibold">Carousel outline</h3>
+                  <ol class="mt-4 grid gap-2 text-sm text-zinc-700">
+                    {% for slide in pack.content.carousel_outline %}
+                      <li class="rounded-md bg-stone-50 px-3 py-2">{{ loop.index }}. {{ slide }}</li>
+                    {% endfor %}
+                  </ol>
+                </article>
+                <article class="rounded-lg border border-zinc-200 bg-white p-5 shadow-sm">
+                  <h3 class="font-semibold">Short video script</h3>
+                  <p class="mt-4 rounded-md bg-stone-50 px-3 py-2 text-sm leading-6 text-zinc-700">{{ pack.content.short_video_script }}</p>
+                </article>
+                <article class="rounded-lg border border-zinc-200 bg-white p-5 shadow-sm">
+                  <h3 class="font-semibold">Photo and shot guidance</h3>
+                  <ul class="mt-4 grid gap-2 text-sm text-zinc-700">
+                    {% for item in pack.content.shot_list %}
+                      <li class="rounded-md bg-stone-50 px-3 py-2">{{ item }}</li>
+                    {% endfor %}
+                  </ul>
+                </article>
+                <article class="rounded-lg border border-zinc-200 bg-white p-5 shadow-sm xl:col-span-2">
+                  <h3 class="font-semibold">Short content calendar</h3>
+                  <div class="mt-4 overflow-x-auto">
+                    <table class="w-full min-w-[720px] text-left text-sm">
+                      <thead class="border-b border-zinc-200 text-xs uppercase text-zinc-500">
+                        <tr>
+                          <th class="py-2 pr-3 font-semibold">Day</th>
+                          <th class="py-2 pr-3 font-semibold">Channel</th>
+                          <th class="py-2 pr-3 font-semibold">Type</th>
+                          <th class="py-2 pr-3 font-semibold">Hook</th>
+                          <th class="py-2 pr-3 font-semibold">Asset</th>
+                        </tr>
+                      </thead>
+                      <tbody class="divide-y divide-zinc-100 text-zinc-700">
+                        {% for item in pack.content.content_calendar %}
+                          <tr>
+                            <td class="py-3 pr-3 font-medium text-zinc-950">{{ item.day }}</td>
+                            <td class="py-3 pr-3">{{ item.channel }}</td>
+                            <td class="py-3 pr-3">{{ item.content_type }}</td>
+                            <td class="py-3 pr-3">{{ item.hook }}</td>
+                            <td class="py-3 pr-3">{{ item.asset_needed }}</td>
+                          </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </article>
+                <article class="rounded-lg border border-zinc-200 bg-white p-5 shadow-sm">
+                  <h3 class="font-semibold">Publishing checklist</h3>
+                  <p class="mt-4 rounded-md bg-emerald-50 px-3 py-2 text-sm leading-6 text-emerald-900">{{ pack.content.cta }}</p>
+                  <ul class="mt-4 grid gap-2 text-sm text-zinc-700">
+                    {% for item in pack.content.publishing_checklist %}
+                      <li class="rounded-md bg-stone-50 px-3 py-2">{{ item }}</li>
+                    {% endfor %}
+                  </ul>
+                </article>
+                <article class="rounded-lg border border-zinc-200 bg-white p-5 shadow-sm">
+                  <h3 class="font-semibold">Guardrails and assumptions</h3>
+                  <ul class="mt-4 grid gap-2 text-sm text-zinc-700">
+                    {% for warning in pack.warnings %}
+                      <li class="rounded-md bg-amber-50 px-3 py-2 text-amber-900">{{ warning }}</li>
+                    {% else %}
+                      <li class="rounded-md bg-emerald-50 px-3 py-2 text-emerald-900">No blocking warnings.</li>
+                    {% endfor %}
+                    {% for assumption in pack.assumptions %}
+                      <li class="rounded-md bg-stone-50 px-3 py-2">{{ assumption }}</li>
+                    {% endfor %}
+                  </ul>
+                </article>
+              </div>
+
+              <article class="rounded-lg border border-zinc-200 bg-white p-5 shadow-sm">
+                <h3 class="font-semibold">Markdown export</h3>
+                <textarea readonly class="mt-4 min-h-80 w-full rounded-md border border-zinc-300 bg-stone-50 p-4 font-mono text-xs leading-5 outline-none ring-emerald-600 focus:ring-2">{{ pack_markdown }}</textarea>
+              </article>
+            {% else %}
+              <div class="rounded-lg border border-dashed border-zinc-300 bg-white p-10 text-center shadow-sm">
+                <h3 class="text-xl font-semibold">Ready for the first campaign</h3>
+                <p class="mx-auto mt-3 max-w-xl text-sm leading-6 text-zinc-600">The first MVP runs deterministic Python logic, so it can be demoed and tested without waiting on API setup.</p>
+              </div>
+            {% endif %}
+          </section>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
