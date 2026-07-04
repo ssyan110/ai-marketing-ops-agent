@@ -44,6 +44,35 @@ def test_run_campaign_returns_complete_pack_without_api_key():
     assert "## Warnings and Assumptions" in markdown
 
 
+def test_structured_intake_controls_campaign_pack_and_calendar_length():
+    campaign = CampaignInput(
+        business_name="Corner Kitchen",
+        industry="Restaurant",
+        location="District 1 office and apartment area",
+        product_service="mac and cheese with spicy crispy chicken",
+        target_audience="office workers and nearby apartment residents",
+        campaign_goal="increase lunch and dinner visits this week",
+        platform="Website, Facebook, Instagram/Reels, Zalo, Google Business Profile",
+        customer_pain_points="Lunch feels repetitive; dinner decisions are last-minute.",
+        requested_content_types="Landing page section, Facebook post, Instagram Reel, Zalo broadcast",
+        content_calendar_length="7 days",
+        tone="Practical, local, appetizing",
+        language="Vietnamese",
+        constraints="Low budget, no discount race.",
+    )
+
+    pack = run_campaign(campaign)
+    markdown = render_campaign_markdown(pack)
+
+    assert pack.brief.industry == "Restaurant"
+    assert pack.brief.location == "District 1 office and apartment area"
+    assert len(pack.content.content_calendar) == 7
+    assert any("Landing page section" in item for item in pack.content.content_types)
+    assert "Lunch feels repetitive" in " ".join(pack.audience.pain_points)
+    assert "District 1" in markdown
+    assert "Marketing Manager Summary" in markdown
+
+
 def test_business_brief_generates_specific_real_world_pack():
     campaign = campaign_from_brief(
         "Loyal Beans",

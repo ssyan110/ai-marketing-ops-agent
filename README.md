@@ -1,6 +1,6 @@
 # AI Marketing Ops Agent
 
-Python-first Kaggle / Google AI Agents capstone app for turning one restaurant campaign brief into a structured, reviewable campaign pack.
+Python-first Kaggle / Google AI Agents capstone app for turning structured restaurant campaign intake into a professional, reviewable marketing campaign pack.
 
 The target user is an independent restaurant owner or manager who needs to promote a dish, offer, or local campaign without hiring a marketing team.
 
@@ -8,13 +8,14 @@ Public submission repo: https://github.com/ssyan110/ai-marketing-ops-agent
 
 ## Current Submission Cut
 
-This MVP is intentionally deterministic and keyless: it runs locally, parses a text brief, generates campaign assets, shows guardrail warnings and evaluation scores, and exports the result as Markdown.
+This MVP is intentionally deterministic and keyless: it runs locally, walks through a staged marketing intake, generates campaign assets, shows guardrail warnings and evaluation scores, and exports the result as Markdown.
 
 Implemented:
 
 - FastAPI + Jinja product workbench.
-- Restaurant-oriented text intake through a compact business brief.
-- Deterministic agent workflow: brief -> audience insight -> strategy -> assets -> evaluation -> export.
+- One-question-at-a-time intake for business name, industry, location, audience, goal, platforms, pain points, content types, calendar length, and constraints.
+- Deterministic agent workflow: structured intake -> audience insight -> strategy -> assets -> calendar -> evaluation -> export.
+- Professional campaign-pack output designed for marketing manager review.
 - LinkedIn post, content types, carousel outline, photo/shot guidance, short content calendar, short video script, CTA, publishing checklist, warnings, assumptions, and Markdown export.
 - Pytest coverage for parsing, workflow generation, guardrails, evaluation, and route rendering.
 
@@ -28,7 +29,7 @@ Not implemented yet:
 
 - FastAPI
 - Jinja
-- Tailwind CDN for the first UI slice
+- Custom CSS for the 2026 workbench and campaign-pack UI
 - Pytest
 
 ## What the Agent Produces

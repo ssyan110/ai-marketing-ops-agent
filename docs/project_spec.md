@@ -4,7 +4,7 @@
 Independent restaurant owners and managers often know what they want to promote, but struggle to turn a dish, offer, or local campaign idea into a structured campaign workflow.
 
 ## Goal
-Build a working AI Marketing Ops Agent that turns one restaurant campaign brief into a complete, copy-ready marketing campaign pack.
+Build a working AI Marketing Ops Agent that turns structured restaurant campaign intake into a complete, copy-ready marketing campaign pack.
 
 ## Target Users
 - Independent restaurant owners
@@ -14,6 +14,7 @@ Build a working AI Marketing Ops Agent that turns one restaurant campaign brief 
 
 ## MVP Scope
 - Professional FastAPI web app with form-based input.
+- One-question-at-a-time campaign intake with visible progress.
 - Deterministic Python agent workflow that works without API keys.
 - Structured campaign output.
 - Guardrail warnings for missing context, overclaims, weak CTA, and generic content.
@@ -22,7 +23,7 @@ Build a working AI Marketing Ops Agent that turns one restaurant campaign brief 
 - Content type recommendations.
 - Photo/shot guidance.
 - Short content calendar.
-- Text-first restaurant campaign brief for the current submission cut.
+- Text-first structured restaurant campaign intake for the current submission cut.
 
 ## Non-Goals
 - No Streamlit UI.
@@ -34,7 +35,7 @@ Build a working AI Marketing Ops Agent that turns one restaurant campaign brief 
 - No claim of image/menu analysis until upload or vision support is implemented.
 
 ## Agent Workflow
-1. Normalize user input into a marketing brief.
+1. Normalize staged user input into a marketing brief.
 2. Generate audience pain points, objections, motivations, and desired outcomes.
 3. Create campaign strategy: hook, positioning, message hierarchy, CTA direction.
 4. Generate content types, LinkedIn post, carousel outline, photo/shot guidance, short content calendar, short video script, CTA, and checklist.
@@ -44,7 +45,15 @@ Build a working AI Marketing Ops Agent that turns one restaurant campaign brief 
 ## Data Contract
 Primary UI fields:
 - business_name
-- business_brief
+- industry
+- location
+- target_audience
+- campaign_goal
+- platform
+- customer_pain_points
+- requested_content_types
+- content_calendar_length
+- constraints
 
 The agent normalizes the brief into:
 - business_name
@@ -62,8 +71,8 @@ Optional normalized fields:
 ## BDD Scenarios
 
 ```gherkin
-Scenario: Generate a complete campaign pack from a campaign brief
-  Given a user provides a business name and compact campaign brief
+Scenario: Generate a complete campaign pack from structured intake
+  Given a user provides staged campaign intake fields
   When the agent workflow runs
   Then it returns a campaign pack with brief, audience, strategy, content, evaluation, warnings, and assumptions
   And the output works without an API key

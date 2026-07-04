@@ -3,10 +3,15 @@ from pydantic import BaseModel, Field
 
 class CampaignInput(BaseModel):
     business_name: str
+    industry: str = ""
+    location: str = ""
     product_service: str
     target_audience: str
     campaign_goal: str
     platform: str
+    customer_pain_points: str = ""
+    requested_content_types: str = ""
+    content_calendar_length: str = ""
     tone: str
     language: str
     constraints: str = ""
@@ -15,10 +20,14 @@ class CampaignInput(BaseModel):
 
 class MarketingBrief(BaseModel):
     business_name: str
+    industry: str = ""
+    location: str = ""
     product_service: str
     target_audience: str
     campaign_goal: str
     platform: str
+    requested_content_types: str = ""
+    content_calendar_length: str = ""
     tone: str
     language: str
     constraints: str = ""

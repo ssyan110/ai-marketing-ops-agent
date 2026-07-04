@@ -25,8 +25,19 @@ def _extract_labeled(text: str, labels: tuple[str, ...]) -> str:
     return ""
 
 
+def _split_items(text: str) -> list[str]:
+    return [_clean(item) for item in re.split(r"[,;\n]+", text or "") if _clean(item)]
+
+
+def _calendar_length(text: str) -> int:
+    match = re.search(r"\d+", text or "")
+    if not match:
+        return 4
+    return max(3, min(int(match.group()), 14))
+
+
 def _restaurant_channels(platform: str) -> list[str]:
-    channels = [_clean(channel) for channel in re.split(r"[,/]+|\band\b", platform) if _clean(channel)]
+    channels = [_clean(channel) for channel in re.split(r",+|\band\b", platform) if _clean(channel)]
     return channels or ["Facebook", "Instagram/Reels", "Zalo", "Google Business Profile"]
 
 
@@ -41,6 +52,8 @@ def campaign_from_brief(
     first_sentence = _clean(re.split(r"[.;\n]", notes, maxsplit=1)[0] if notes else "")
     return CampaignInput(
         business_name=_clean(business_name, "Your business"),
+        industry=_extract_labeled(notes, ("industry", "sector", "ngành")),
+        location=_extract_labeled(notes, ("location", "area", "neighborhood", "địa điểm", "khu vực")),
         product_service=_extract_labeled(
             notes, ("offer", "product", "service", "ưu đãi", "sản phẩm", "dịch vụ", "giải pháp")
         )
@@ -51,6 +64,11 @@ def campaign_from_brief(
         ),
         campaign_goal=_extract_labeled(notes, ("goal", "objective", "outcome", "mục tiêu", "kết quả")),
         platform=_extract_labeled(notes, ("channel", "channels", "platform", "kênh")) or _clean(platform, "LinkedIn"),
+        customer_pain_points=_extract_labeled(notes, ("pain point", "pain points", "problem", "problems", "nỗi đau")),
+        requested_content_types=_extract_labeled(
+            notes, ("content type", "content types", "asset", "assets", "loại nội dung")
+        ),
+        content_calendar_length=_extract_labeled(notes, ("calendar", "calendar length", "duration", "lịch")),
         tone=_clean(tone, "Practical, specific, no hype"),
         language=_clean(language, "Vietnamese"),
         constraints=_extract_labeled(notes, ("constraint", "constraints", "ràng buộc", "lưu ý"))
@@ -61,6 +79,8 @@ def campaign_from_brief(
 
 def run_campaign(campaign: CampaignInput) -> CampaignPack:
     business = _clean(campaign.business_name, "Your business")
+    industry = _clean(campaign.industry, "local business")
+    location = _clean(campaign.location, "the local market")
     offer = _clean(campaign.product_service, "a practical offer")
     audience_name = _clean(campaign.target_audience, "Vietnamese small business operators")
     goal = _clean(campaign.campaign_goal, "turn interest into a qualified next step")
@@ -69,19 +89,34 @@ def run_campaign(campaign: CampaignInput) -> CampaignPack:
     platform = _clean(campaign.platform, "LinkedIn")
     cta = f"Message {business} for a first-step checklist on using {offer} to {goal}."
     channels = _restaurant_channels(platform)
+    requested_content_types = _split_items(campaign.requested_content_types)
+    calendar_length = _calendar_length(campaign.content_calendar_length)
+    pain_points = _split_items(campaign.customer_pain_points)
+    base_content_types = requested_content_types or [
+        f"Hero dish/menu item post for {offer}",
+        "Behind-the-counter prep or service moment",
+        "Customer-situation post tied to a local lunch, dinner, or repeat-visit occasion",
+        "Short Reel/TikTok showing one texture, plating, or ordering moment",
+        "Google Business Profile update with a clear availability note",
+    ]
     brief = MarketingBrief(
         business_name=business,
+        industry=industry,
+        location=location,
         product_service=offer,
         target_audience=audience_name,
         campaign_goal=goal,
         platform=platform,
+        requested_content_types=", ".join(base_content_types),
+        content_calendar_length=f"{calendar_length} days",
         tone=_clean(campaign.tone, "Practical, specific, no hype"),
         language=language,
         constraints=constraint,
     )
     audience = AudienceInsight(
         pain_points=[
-            f"{audience_name} are trying to {goal}, but daily work leaves little time for campaign planning.",
+            *(pain_points or []),
+            f"{audience_name} in {location} are trying to {goal}, but daily work leaves little time for campaign planning.",
             f"They need to understand why {offer} helps now, not just what it is.",
             "They distrust broad marketing promises that do not connect to their day-to-day work.",
         ],
@@ -100,19 +135,40 @@ def run_campaign(campaign: CampaignInput) -> CampaignPack:
     )
     strategy = CampaignStrategy(
         hook=f"{audience_name}: make the path to {goal} feel concrete before asking for attention.",
-        positioning=f"{business} packages {offer} as a practical next step for {audience_name} who need to {goal}.",
+        positioning=(
+            f"{business} positions {offer} as a practical {industry} campaign for {audience_name} "
+            f"in {location} who need to {goal}."
+        ),
         message_hierarchy=[
             f"Name the costly problem blocking this goal: {goal}.",
             f"Show how {offer} removes one piece of that friction.",
-            "Use one daily-work example instead of a broad claim.",
+            f"Use one {location} moment instead of a broad claim.",
             "Ask for one small next action, not a vague expression of interest.",
         ],
         cta_direction=cta,
     )
+    calendar: list[ContentCalendarItem] = []
+    for index in range(calendar_length):
+        content_type = base_content_types[index % len(base_content_types)]
+        channel = channels[index % len(channels)]
+        calendar.append(
+            ContentCalendarItem(
+                day=f"Day {index + 1}",
+                channel=channel,
+                content_type=content_type,
+                hook=f"Connect {offer} to {audience_name} in {location}: {goal}.",
+                asset_needed=(
+                    "Landing-page copy block"
+                    if "website" in channel.lower()
+                    else "Product photo, short clip, or proof point"
+                ),
+                cta=cta,
+            )
+        )
     content = ContentPack(
         linkedin_post=(
             f"{strategy.hook}\n\n"
-            f"If you run a restaurant for {audience_name}, the real problem is rarely 'we need more posts.' "
+            f"If you run a {industry} business for {audience_name} in {location}, the real problem is rarely 'we need more posts.' "
             f"It is that buyers do not see a simple path from today's friction to the goal: {goal}.\n\n"
             f"That is where {offer} needs a sharper campaign:\n"
             "1. Name the painful moment the audience already recognizes.\n"
@@ -123,15 +179,9 @@ def run_campaign(campaign: CampaignInput) -> CampaignPack:
             f"For {business}, the campaign promise should stay practical: help {audience_name} move toward the goal: {goal} while respecting this constraint: {constraint}\n\n"
             f"CTA: {cta}"
         ),
-        content_types=[
-            f"Hero dish/menu item post for {offer}",
-            "Behind-the-counter prep or service moment",
-            "Customer-situation post tied to a local lunch, dinner, or repeat-visit occasion",
-            "Short Reel/TikTok showing one texture, plating, or ordering moment",
-            "Google Business Profile update with a clear availability note",
-        ],
+        content_types=base_content_types,
         carousel_outline=[
-            f"{audience_name}: the real blocker behind the goal",
+            f"{audience_name} in {location}: the real blocker behind the goal",
             f"Why {offer} matters now",
             "The hidden cost of keeping the current workaround",
             "A before-and-after example the audience can recognize",
@@ -145,40 +195,7 @@ def run_campaign(campaign: CampaignInput) -> CampaignPack:
             "One menu/ordering shot that shows how customers can ask for the offer",
             "One 5-second vertical clip with hook text over the first frame",
         ],
-        content_calendar=[
-            ContentCalendarItem(
-                day="Day 1",
-                channel=channels[0],
-                content_type="Hero dish post",
-                hook=f"Show {offer} as the simple first step toward {goal}.",
-                asset_needed="Best product photo",
-                cta=cta,
-            ),
-            ContentCalendarItem(
-                day="Day 2",
-                channel=channels[min(1, len(channels) - 1)],
-                content_type="Behind-the-scenes short video",
-                hook="Show the prep, plating, or service moment customers cannot see from the menu.",
-                asset_needed="Vertical prep clip",
-                cta=cta,
-            ),
-            ContentCalendarItem(
-                day="Day 4",
-                channel=channels[min(2, len(channels) - 1)],
-                content_type="Local occasion post",
-                hook=f"Connect {offer} to when {audience_name} are most likely to act.",
-                asset_needed="Dining room, takeaway, or neighborhood context photo",
-                cta=cta,
-            ),
-            ContentCalendarItem(
-                day="Day 6",
-                channel=channels[min(3, len(channels) - 1)],
-                content_type="Reminder and objection answer",
-                hook=f"Answer the practical question: why try {offer} now?",
-                asset_needed="Menu or ordering screenshot/photo",
-                cta=cta,
-            ),
-        ],
+        content_calendar=calendar,
         short_video_script=(
             f"Hook: If you are {audience_name} trying to {goal}, do not start with a generic post. "
             f"Scene 1: show the restaurant moment that makes the goal hard. "
@@ -218,11 +235,18 @@ def render_campaign_markdown(pack: CampaignPack) -> str:
     return "\n\n".join(
         [
             f"# Campaign Pack: {pack.brief.business_name}",
+            "## Marketing Manager Summary\n"
+            f"- Industry: {pack.brief.industry}\n"
+            f"- Location: {pack.brief.location}\n"
+            f"- Campaign goal: {pack.brief.campaign_goal}\n"
+            f"- Calendar length: {pack.brief.content_calendar_length}\n"
+            f"- Core CTA: {pack.content.cta}",
             "## Brief\n"
             f"- Product/service: {pack.brief.product_service}\n"
             f"- Audience: {pack.brief.target_audience or 'Not specified'}\n"
             f"- Goal: {pack.brief.campaign_goal}\n"
             f"- Platform: {pack.brief.platform}\n"
+            f"- Content types: {pack.brief.requested_content_types}\n"
             f"- Tone: {pack.brief.tone}\n"
             f"- Language: {pack.brief.language}",
             "## Audience Insight\n"

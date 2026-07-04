@@ -4,11 +4,11 @@
 
 Independent restaurant owners and managers often need to promote a dish, offer, or local campaign while also running daily operations. They may have a product idea and a rough note, but not enough time or marketing support to turn it into clear copy, content structure, CTA, and quality checks.
 
-AI Marketing Ops Agent focuses on this solo-ops restaurant workflow: take one messy campaign brief and turn it into a reviewable campaign pack that can be edited and used by the owner or manager.
+AI Marketing Ops Agent focuses on this solo-ops restaurant workflow: ask the right campaign questions one at a time, then turn the answers into a reviewable campaign pack that can be edited and used by the owner or manager.
 
 ## 2. Solution Overview
 
-The current MVP is a Python FastAPI workbench. A user enters a business name and compact campaign brief. The deterministic agent parses the brief, builds a marketing brief, generates audience insight, proposes a campaign strategy, drafts content assets, creates photo guidance and a short posting calendar, evaluates the pack, shows warnings and assumptions, and exports the output as Markdown.
+The current MVP is a Python FastAPI workbench. A user answers a staged intake covering business name, industry, location, target audience, campaign goal, platforms, customer pain points, content types, calendar length, and constraints. The deterministic agent builds a marketing brief, generates audience insight, proposes a campaign strategy, drafts content assets, creates photo guidance and a posting calendar, evaluates the pack, shows warnings and assumptions, and exports the output as Markdown.
 
 The submission demo should use a restaurant scenario such as:
 
@@ -24,7 +24,7 @@ The submission demo should use a restaurant scenario such as:
 
 The app uses a staged workflow rather than one long prompt:
 
-1. Normalize the input into a campaign model.
+1. Normalize the staged intake into a campaign model.
 2. Build audience pain points, objections, motivations, and desired outcomes.
 3. Create strategy: hook, positioning, message hierarchy, and CTA direction.
 4. Generate campaign assets: content types, LinkedIn post, carousel outline, shot list, short content calendar, short video script, CTA, and publishing checklist.
@@ -49,7 +49,7 @@ Stack:
 
 - FastAPI for the app server.
 - Jinja templates for the UI.
-- Tailwind CDN for the first professional workbench slice.
+- Custom CSS for the 2026 workbench and campaign-pack UI.
 - Pydantic models for data contracts.
 - Pytest for workflow, guardrail, evaluator, and route checks.
 
@@ -84,11 +84,10 @@ Current limitations:
 
 ## 9. Impact and Future Work
 
-The practical value is speed and structure: a restaurant owner can move from a rough dish or offer idea to a campaign pack with CTA, assets, checklist, warnings, and export in minutes.
+The practical value is speed and structure: a restaurant owner or marketing manager can move from campaign context to a professional pack with CTA, assets, calendar, checklist, warnings, and export in minutes.
 
 Next improvements:
 
 - Publish a public repo or hosted runnable demo.
-- Expand the short content calendar into a 7-day or 14-day campaign calendar.
 - Add optional image/menu upload and Gemini vision support.
 - Add optional Google ADK/Gemini provider while keeping the no-key deterministic fallback.

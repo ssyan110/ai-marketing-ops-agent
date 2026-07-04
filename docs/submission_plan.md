@@ -6,7 +6,7 @@ Agents for Business.
 
 ## Winning Angle
 
-AI Marketing Ops Agent helps independent restaurant owners and managers turn one messy dish or offer brief into a quality-checked campaign pack they can review, edit, and publish without a marketing team.
+AI Marketing Ops Agent helps independent restaurant owners and managers answer a focused campaign intake and receive a quality-checked campaign pack they can review, edit, and publish without a marketing team.
 
 ## Eligibility Checklist
 
@@ -76,7 +76,7 @@ AI Marketing Ops Agent helps independent restaurant owners and managers turn one
 
 Completed in the current local app:
 
-- Text brief intake for a restaurant or small-business campaign.
+- Guided one-question-at-a-time intake for a restaurant or small-business campaign.
 - Deterministic workflow that works without API keys.
 - Audience insight, strategy, content types, LinkedIn post, carousel outline, photo/shot guidance, short content calendar, short video script, CTA, checklist, score, warnings, assumptions, and Markdown export.
 - Automated tests for the core workflow and route behavior.

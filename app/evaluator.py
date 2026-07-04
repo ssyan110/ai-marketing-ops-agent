@@ -57,7 +57,14 @@ def _restaurant_score(content: ContentPack, context: CampaignInput | MarketingBr
     context_text = ""
     if context is not None:
         context_text = " ".join(
-            [context.target_audience, context.product_service, context.campaign_goal, context.constraints]
+            [
+                context.industry,
+                context.location,
+                context.target_audience,
+                context.product_service,
+                context.campaign_goal,
+                context.constraints,
+            ]
         ).lower()
     matches = sum(term in f"{text} {context_text}" for term in RESTAURANT_TERMS)
     return 5 if matches >= 4 else 3 if matches >= 2 else 1

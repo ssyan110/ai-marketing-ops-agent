@@ -18,7 +18,7 @@ Business name:
 Corner Kitchen
 ```
 
-Business brief:
+Structured intake values:
 
 ```text
 Audience: office workers and nearby apartment residents. Offer: mac and cheese with spicy crispy chicken. Goal: increase lunch and dinner visits this week. Channels: Facebook, Instagram/Reels, Zalo, Google Business Profile. Constraint: low budget, no discount race, avoid guaranteed traffic claims.
@@ -37,11 +37,11 @@ Audience: office workers and nearby apartment residents. Offer: mac and cheese w
 ### 1:00-2:20 - Live Demo
 
 1. Show the input form.
-2. Paste the Corner Kitchen brief.
+2. Walk through the staged intake: business name, industry, location, audience, goal, platforms, pain points, content types, calendar length, and constraints.
 3. Click "Generate campaign pack."
 4. Show the workflow status.
 5. Show strategy and audience insight.
-6. Show the generated content types, LinkedIn post, carousel outline, shot guidance, short content calendar, short video script, CTA, and publishing checklist.
+6. Show the designed marketing campaign pack: manager summary, strategy, content types, LinkedIn post, carousel outline, shot guidance, short content calendar, short video script, CTA, and publishing checklist.
 
 ### 2:20-3:20 - Evaluation and Guardrails
 
@@ -55,7 +55,7 @@ Show the score panel, guardrails, assumptions, and Markdown export.
 
 ### 4:20-5:00 - Honest Scope and Next Steps
 
-"For this submission, the working surface is text brief to restaurant campaign pack with evaluation, shot guidance, short calendar, and Markdown export. The next slices are public deployment, image/menu upload, expanded 7- or 14-day calendars, and optional Gemini or Google ADK integration while keeping the no-key fallback."
+"For this submission, the working surface is guided intake to restaurant campaign pack with evaluation, shot guidance, calendar, and Markdown export. The next slices are public deployment, image/menu upload, and optional Gemini or Google ADK integration while keeping the no-key fallback."
 
 ## Pre-Submission Checklist
 
