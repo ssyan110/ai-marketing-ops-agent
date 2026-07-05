@@ -3,21 +3,28 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Intake Wizard Prototypes</title>
+    <title>Prototype 3 - Calm Local Business Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,600..900,60,1&family=Manrope:wght@400..900&family=Martian+Mono:wght@400..800&display=swap" rel="stylesheet">
     <style>
       :root {
-        --ink: #101820;
-        --muted: #5f6875;
-        --line: #d9ded7;
-        --paper: #f6f4ee;
-        --panel: #fffdf7;
-        --leaf: #145a4a;
-        --lime: #c9e265;
-        --tomato: #dc5539;
-        --blue: #2f63b7;
-        --gold: #d99935;
-        --shadow: 0 24px 80px rgba(18, 24, 31, 0.14);
-        --radius: 8px;
+        --ink: #17211e;
+        --paper: #f8f0df;
+        --panel: #fffaf0;
+        --soft: #fbefd7;
+        --line: #decfb3;
+        --muted: #756f65;
+        --leaf: #0f5a4e;
+        --leaf-dark: #083d36;
+        --banana: #f1d95a;
+        --clay: #bd684b;
+        --coral: #cf6544;
+        --shadow: 0 26px 70px rgba(68, 44, 23, 0.16);
+        --radius: 22px;
+        --display: "Fraunces", Georgia, serif;
+        --ui: "Manrope", Avenir Next, sans-serif;
+        --mono: "Martian Mono", ui-monospace, monospace;
       }
 
       * {
@@ -26,545 +33,457 @@
 
       body {
         margin: 0;
+        min-height: 100dvh;
         background:
-          linear-gradient(120deg, rgba(20, 90, 74, 0.10), transparent 36%),
-          radial-gradient(circle at 88% 14%, rgba(201, 226, 101, 0.34), transparent 28%),
-          linear-gradient(180deg, #fbfaf5, var(--paper));
+          radial-gradient(circle at 14% 7%, rgba(241, 217, 90, 0.44), transparent 24%),
+          radial-gradient(circle at 88% 10%, rgba(189, 104, 75, 0.22), transparent 28%),
+          linear-gradient(135deg, rgba(15, 90, 78, 0.10), transparent 46%),
+          linear-gradient(180deg, #fff8eb, var(--paper));
         color: var(--ink);
-        font-family: Avenir Next, Avenir, Helvetica Neue, Helvetica, sans-serif;
+        font-family: var(--ui);
       }
 
-      button,
-      input,
-      textarea {
-        font: inherit;
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.22;
+        background-image:
+          linear-gradient(rgba(23, 33, 30, 0.06) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(23, 33, 30, 0.05) 1px, transparent 1px);
+        background-size: 42px 42px;
+        mask-image: linear-gradient(180deg, #000, transparent 88%);
       }
 
       .shell {
-        min-height: 100dvh;
+        position: relative;
+        max-width: 1480px;
+        margin: 0 auto;
         padding: 28px;
       }
 
       .masthead {
         display: grid;
         grid-template-columns: minmax(0, 1fr) auto;
-        gap: 24px;
+        gap: 22px;
         align-items: end;
-        max-width: 1420px;
-        margin: 0 auto 22px;
-        border-bottom: 1px solid rgba(16, 24, 32, 0.16);
+        border-bottom: 1px solid rgba(23, 33, 30, 0.14);
         padding-bottom: 22px;
+        margin-bottom: 22px;
       }
 
       .eyebrow {
         margin: 0 0 8px;
-        color: var(--leaf);
-        font-size: 13px;
+        color: var(--clay);
+        font-family: var(--mono);
+        font-size: 11px;
         font-weight: 800;
-        letter-spacing: 0;
+        letter-spacing: -0.04em;
         text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        overflow-wrap: anywhere;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: var(--display);
+        letter-spacing: -0.05em;
       }
 
       h1 {
         margin: 0;
-        max-width: 780px;
-        font-family: Georgia, Times New Roman, serif;
-        font-size: clamp(40px, 5vw, 76px);
-        line-height: 0.94;
-        letter-spacing: 0;
+        max-width: 840px;
+        font-size: clamp(44px, 6vw, 92px);
+        font-weight: 850;
+        line-height: 0.88;
       }
 
-      .masthead p {
-        margin: 16px 0 0;
-        max-width: 720px;
+      .masthead p:not(.eyebrow) {
+        margin: 14px 0 0;
+        max-width: 680px;
         color: var(--muted);
         font-size: 18px;
         line-height: 1.55;
       }
 
-      .status-pill {
-        border: 1px solid rgba(16, 24, 32, 0.16);
-        background: #fff;
+      .pill {
+        border: 1px solid rgba(23, 33, 30, 0.12);
         border-radius: 999px;
-        padding: 10px 14px;
+        background: rgba(255, 250, 240, 0.78);
         color: var(--muted);
-        font-size: 14px;
+        padding: 9px 12px;
+        font-family: var(--mono);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: -0.04em;
         white-space: nowrap;
       }
 
-      .prototype-tabs {
-        display: flex;
-        gap: 10px;
-        max-width: 1420px;
-        margin: 0 auto 18px;
-        overflow-x: auto;
-        padding-bottom: 4px;
-      }
-
-      .tab {
-        border: 1px solid rgba(16, 24, 32, 0.18);
-        background: #fff;
-        color: var(--ink);
-        border-radius: 999px;
-        padding: 10px 14px;
-        cursor: pointer;
-        transition: background 160ms ease, color 160ms ease, border 160ms ease;
-        white-space: nowrap;
-      }
-
-      .tab[aria-selected="true"] {
-        background: var(--ink);
-        border-color: var(--ink);
-        color: #fffdf7;
-      }
-
-      .prototype {
-        display: none;
-        max-width: 1420px;
-        margin: 0 auto;
-      }
-
-      .prototype.is-active {
-        display: block;
-      }
-
-      .workbench {
+      .workspace {
         display: grid;
-        grid-template-columns: 380px minmax(0, 1fr);
-        min-height: 650px;
-        overflow: hidden;
-        border: 1px solid rgba(16, 24, 32, 0.16);
+        grid-template-columns: 330px minmax(0, 1fr);
+        gap: 18px;
+      }
+
+      .intake {
+        position: sticky;
+        top: 18px;
+        align-self: start;
+        min-height: calc(100dvh - 125px);
+        display: grid;
+        align-content: space-between;
+        gap: 24px;
+        border: 1px solid rgba(8, 61, 54, 0.16);
         border-radius: var(--radius);
-        background: var(--panel);
+        background:
+          radial-gradient(circle at 88% 10%, rgba(241, 217, 90, 0.34), transparent 25%),
+          linear-gradient(155deg, var(--leaf-dark), var(--leaf));
+        color: #fff8e8;
+        padding: 24px;
         box-shadow: var(--shadow);
       }
 
-      .rail {
-        background: #111a22;
-        color: #fffdf7;
-        padding: 26px;
-        display: grid;
-        align-content: space-between;
-        gap: 28px;
+      .intake .eyebrow {
+        color: var(--banana);
       }
 
-      .rail h2 {
+      .intake h2 {
         margin: 0;
-        font-family: Georgia, Times New Roman, serif;
-        font-size: 36px;
-        line-height: 1.02;
-        letter-spacing: 0;
+        font-size: 39px;
+        font-weight: 820;
+        line-height: 0.98;
+      }
+
+      .progress {
+        height: 12px;
+        margin: 24px 0 18px;
+        border-radius: 999px;
+        background: rgba(255, 248, 232, 0.15);
+        overflow: hidden;
+      }
+
+      .progress span {
+        display: block;
+        width: 70%;
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, var(--banana), #ffb86a, var(--coral));
       }
 
       .steps {
+        list-style: none;
         display: grid;
-        gap: 8px;
-        margin-top: 28px;
+        gap: 2px;
+        margin: 0;
+        padding: 0;
+        counter-reset: step;
       }
 
-      .step-row {
+      .steps li {
+        counter-increment: step;
         display: grid;
-        grid-template-columns: 28px minmax(0, 1fr) auto;
-        gap: 12px;
+        grid-template-columns: 28px minmax(0, 1fr);
+        gap: 10px;
         align-items: center;
-        padding: 11px 0;
-        border-bottom: 1px solid rgba(255, 253, 247, 0.13);
-        color: rgba(255, 253, 247, 0.62);
-      }
-
-      .step-row.is-current {
-        color: #fffdf7;
-      }
-
-      .step-dot {
-        display: grid;
-        width: 28px;
-        height: 28px;
-        place-items: center;
-        border: 1px solid rgba(255, 253, 247, 0.32);
-        border-radius: 999px;
-        font-size: 12px;
-        font-weight: 800;
-      }
-
-      .step-row.is-current .step-dot {
-        background: var(--lime);
-        border-color: var(--lime);
-        color: #111a22;
-      }
-
-      .step-label {
-        font-weight: 700;
-      }
-
-      .step-meta {
-        font-size: 12px;
-        color: rgba(255, 253, 247, 0.52);
-      }
-
-      .brief-card {
-        border: 1px solid rgba(255, 253, 247, 0.16);
-        border-radius: var(--radius);
-        padding: 18px;
-        background: rgba(255, 253, 247, 0.07);
-      }
-
-      .brief-card strong {
-        display: block;
-        margin-bottom: 8px;
-        color: var(--lime);
-      }
-
-      .main-panel {
-        padding: 34px;
-        display: grid;
-        grid-template-rows: auto minmax(0, 1fr) auto;
-        gap: 26px;
-      }
-
-      .progress-bar {
-        height: 10px;
-        overflow: hidden;
-        border-radius: 999px;
-        background: #e7e4dc;
-      }
-
-      .progress-fill {
-        width: 14%;
-        height: 100%;
-        border-radius: inherit;
-        background: linear-gradient(90deg, var(--leaf), var(--lime));
-        transition: width 220ms ease;
-      }
-
-      .question-card {
-        display: grid;
-        align-content: center;
-        max-width: 760px;
-        min-height: 380px;
-      }
-
-      .question-count {
-        margin: 0 0 12px;
-        color: var(--tomato);
+        border-bottom: 1px solid rgba(255, 248, 232, 0.12);
+        padding: 9px 0;
+        color: rgba(255, 248, 232, 0.64);
         font-size: 13px;
+        font-weight: 760;
+      }
+
+      .steps li::before {
+        content: counter(step);
+        display: grid;
+        width: 26px;
+        height: 26px;
+        place-items: center;
+        border: 1px solid rgba(255, 248, 232, 0.28);
+        border-radius: 999px;
+        font-family: var(--mono);
+        font-size: 10px;
         font-weight: 900;
+      }
+
+      .steps .done {
+        color: rgba(255, 248, 232, 0.88);
+      }
+
+      .steps .current {
+        color: #fff8e8;
+      }
+
+      .steps .current::before {
+        background: var(--banana);
+        border-color: var(--banana);
+        color: var(--leaf-dark);
+      }
+
+      .note {
+        border: 1px solid rgba(255, 248, 232, 0.18);
+        border-radius: 18px;
+        background: rgba(255, 248, 232, 0.09);
+        color: rgba(255, 248, 232, 0.76);
+        padding: 16px;
+        line-height: 1.45;
+      }
+
+      .stage {
+        display: grid;
+        gap: 18px;
+      }
+
+      .wizard,
+      .pack {
+        border: 1px solid rgba(23, 33, 30, 0.10);
+        border-radius: var(--radius);
+        background:
+          linear-gradient(135deg, rgba(241, 217, 90, 0.10), transparent 32%),
+          var(--panel);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .wizard {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 270px;
+        gap: 18px;
+        padding: 28px;
+      }
+
+      .question h2 {
+        margin: 0;
+        max-width: 780px;
+        font-size: clamp(38px, 5vw, 68px);
+        line-height: 0.92;
+      }
+
+      .question p {
+        max-width: 620px;
+        color: var(--muted);
+        font-size: 17px;
+        line-height: 1.55;
+      }
+
+      label {
+        display: grid;
+        gap: 10px;
+        margin-top: 28px;
+        color: var(--ink);
+        font-family: var(--mono);
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: -0.04em;
         text-transform: uppercase;
       }
 
-      .question-title {
-        margin: 0;
-        font-family: Georgia, Times New Roman, serif;
-        font-size: clamp(34px, 4vw, 58px);
-        line-height: 1.02;
-        letter-spacing: 0;
-      }
-
-      .question-help {
-        margin: 16px 0 0;
-        max-width: 650px;
-        color: var(--muted);
-        font-size: 18px;
-        line-height: 1.5;
-      }
-
-      .field-row {
-        margin-top: 28px;
-        display: grid;
-        gap: 12px;
-      }
-
-      .field-row input,
-      .field-row textarea {
+      input {
         width: 100%;
-        border: 1px solid rgba(16, 24, 32, 0.22);
-        background: #fff;
-        border-radius: var(--radius);
-        padding: 18px 18px;
+        border: 1px solid rgba(23, 33, 30, 0.18);
+        border-radius: 18px;
+        background: #fffaf2;
         color: var(--ink);
-        outline: none;
-        transition: border-color 160ms ease, box-shadow 160ms ease;
-      }
-
-      .field-row textarea {
-        min-height: 132px;
-        resize: vertical;
-      }
-
-      .field-row input:focus,
-      .field-row textarea:focus {
-        border-color: var(--leaf);
-        box-shadow: 0 0 0 4px rgba(20, 90, 74, 0.14);
+        padding: 18px;
+        font: 750 19px var(--ui);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.62);
       }
 
       .chips {
         display: flex;
         flex-wrap: wrap;
-        gap: 10px;
-        margin-top: 24px;
-      }
-
-      .chip {
-        border: 1px solid rgba(16, 24, 32, 0.18);
-        background: #fff;
-        border-radius: 999px;
-        padding: 10px 13px;
-        cursor: pointer;
-      }
-
-      .chip.is-on {
-        border-color: var(--leaf);
-        background: #e6f3db;
-        color: var(--leaf);
-        font-weight: 800;
-      }
-
-      .actions {
-        display: flex;
-        justify-content: space-between;
-        gap: 12px;
-        align-items: center;
-      }
-
-      .btn {
-        border: 1px solid rgba(16, 24, 32, 0.20);
-        background: #fff;
-        border-radius: var(--radius);
-        padding: 13px 18px;
-        cursor: pointer;
-        font-weight: 800;
-      }
-
-      .btn.primary {
-        background: var(--ink);
-        border-color: var(--ink);
-        color: #fffdf7;
-      }
-
-      .btn:focus-visible,
-      .tab:focus-visible,
-      .chip:focus-visible {
-        outline: 4px solid rgba(47, 99, 183, 0.26);
-        outline-offset: 2px;
-      }
-
-      .summary-strip {
-        display: flex;
         gap: 8px;
-        flex-wrap: wrap;
+        margin-top: 18px;
+      }
+
+      .chips span {
+        border: 1px solid rgba(23, 33, 30, 0.12);
+        border-radius: 999px;
+        background: #f6e6c7;
+        color: var(--muted);
+        padding: 8px 10px;
+        font-family: var(--mono);
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: -0.04em;
+      }
+
+      .mini-pack {
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: #fffaf2;
+        padding: 16px;
+      }
+
+      .mini-pack h3 {
+        margin: 0 0 12px;
+        font-size: 28px;
+        line-height: 1;
+      }
+
+      .mini-pack div {
+        display: grid;
+        gap: 4px;
+        border-top: 1px solid var(--line);
+        padding: 10px 0;
         color: var(--muted);
         font-size: 13px;
       }
 
-      .summary-strip span {
-        border: 1px solid rgba(16, 24, 32, 0.12);
-        background: rgba(255, 255, 255, 0.68);
-        border-radius: 999px;
-        padding: 7px 10px;
+      .mini-pack b {
+        color: var(--ink);
       }
 
-      .console-prototype {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) 390px;
-        gap: 18px;
-      }
-
-      .chat-panel,
-      .preview-panel,
-      .timeline-panel {
-        border: 1px solid rgba(16, 24, 32, 0.16);
-        border-radius: var(--radius);
-        background: #fffdf7;
-        box-shadow: var(--shadow);
-      }
-
-      .chat-panel {
-        min-height: 650px;
-        padding: 28px;
-        display: grid;
-        grid-template-rows: auto 1fr auto;
-        gap: 22px;
-      }
-
-      .chat-header,
-      .preview-header {
+      .actions {
         display: flex;
-        justify-content: space-between;
-        gap: 16px;
         align-items: center;
-        border-bottom: 1px solid var(--line);
-        padding-bottom: 18px;
-      }
-
-      .chat-header h2,
-      .preview-header h2 {
-        margin: 0;
-        font-family: Georgia, Times New Roman, serif;
-        font-size: 34px;
-      }
-
-      .messages {
-        display: grid;
-        align-content: start;
-        gap: 14px;
-      }
-
-      .message {
-        max-width: 680px;
-        border-radius: 18px 18px 18px 4px;
-        background: #eef0e7;
-        padding: 16px;
-        color: #24313a;
-      }
-
-      .message.user {
-        justify-self: end;
-        border-radius: 18px 18px 4px 18px;
-        background: #111a22;
-        color: #fffdf7;
-      }
-
-      .chat-input {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) auto;
         gap: 10px;
-        border-top: 1px solid var(--line);
-        padding-top: 18px;
-      }
-
-      .preview-panel {
-        padding: 24px;
-      }
-
-      .snapshot-list {
-        display: grid;
-        gap: 12px;
-        margin-top: 18px;
-      }
-
-      .snapshot {
-        border-left: 4px solid var(--gold);
-        background: #f7f3e8;
-        padding: 12px 14px;
-      }
-
-      .snapshot small {
-        display: block;
-        color: var(--muted);
-        margin-bottom: 4px;
-      }
-
-      .timeline-layout {
-        display: grid;
-        grid-template-columns: 320px minmax(0, 1fr);
-        gap: 18px;
-      }
-
-      .timeline-panel {
-        min-height: 650px;
-        padding: 26px;
-      }
-
-      .timeline-steps {
-        display: grid;
-        gap: 12px;
-      }
-
-      .timeline-step {
-        border: 1px solid var(--line);
-        border-radius: var(--radius);
-        background: #fff;
-        padding: 16px;
-      }
-
-      .timeline-step strong {
-        display: block;
-        margin-bottom: 6px;
-      }
-
-      .timeline-step.is-current {
-        border-color: var(--blue);
-        box-shadow: inset 0 0 0 1px var(--blue);
-      }
-
-      .canvas {
-        border: 1px solid rgba(16, 24, 32, 0.16);
-        border-radius: var(--radius);
-        background: #101820;
-        color: #fffdf7;
-        box-shadow: var(--shadow);
-        padding: 30px;
-        min-height: 650px;
-        display: grid;
-        align-content: center;
-      }
-
-      .canvas-card {
-        max-width: 740px;
-      }
-
-      .canvas h2 {
-        margin: 0;
-        font-family: Georgia, Times New Roman, serif;
-        font-size: clamp(34px, 5vw, 70px);
-        line-height: 1;
-      }
-
-      .canvas p {
-        color: rgba(255, 253, 247, 0.72);
-        font-size: 18px;
-        line-height: 1.55;
-      }
-
-      .quality-grid {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 12px;
         margin-top: 28px;
       }
 
-      .quality {
-        border: 1px solid rgba(255, 253, 247, 0.18);
-        border-radius: var(--radius);
+      .btn {
+        border: 1px solid rgba(23, 33, 30, 0.16);
+        border-radius: 18px;
+        background: #fffaf2;
+        color: var(--ink);
+        padding: 13px 16px;
+        font: 900 12px var(--mono);
+        letter-spacing: -0.04em;
+      }
+
+      .btn.primary {
+        background: var(--leaf-dark);
+        border-color: var(--leaf-dark);
+        color: #fff8e8;
+        box-shadow: 0 12px 26px rgba(8, 61, 54, 0.20);
+      }
+
+      .pack-cover {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 350px;
+        gap: 24px;
+        align-items: end;
+        background:
+          radial-gradient(circle at 12% 12%, rgba(241, 217, 90, 0.38), transparent 28%),
+          radial-gradient(circle at 86% 0%, rgba(207, 101, 68, 0.22), transparent 30%),
+          linear-gradient(145deg, #fff6e3, #f3dfb9);
+        padding: 30px;
+      }
+
+      .pack-cover h2 {
+        margin: 0;
+        font-size: clamp(40px, 5vw, 76px);
+        line-height: 0.9;
+      }
+
+      .pack-cover p {
+        max-width: 760px;
+        color: #5c584f;
+        font-size: 17px;
+        line-height: 1.5;
+      }
+
+      .stats {
+        display: grid;
+        gap: 10px;
+      }
+
+      .stat,
+      .card {
+        border: 1px solid rgba(23, 33, 30, 0.12);
+        border-radius: 18px;
+        background: rgba(255, 250, 242, 0.78);
         padding: 14px;
-        background: rgba(255, 253, 247, 0.06);
+        box-shadow: 0 14px 42px rgba(68, 44, 23, 0.11);
       }
 
-      .quality b {
+      .stat small,
+      .card small {
         display: block;
-        color: var(--lime);
-        font-size: 28px;
+        color: var(--clay);
+        font: 800 10px var(--mono);
+        letter-spacing: -0.04em;
+        text-transform: uppercase;
       }
 
-      @media (max-width: 980px) {
+      .stat b {
+        display: block;
+        margin-top: 5px;
+        font-size: 18px;
+      }
+
+      .pack-body {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1.2fr;
+        gap: 14px;
+        padding: 22px;
+      }
+
+      .card {
+        background: #fffaf2;
+      }
+
+      .card h3 {
+        margin: 8px 0 10px;
+        font-size: 30px;
+        line-height: 1;
+      }
+
+      .card p,
+      .card li {
+        color: #4f554d;
+        line-height: 1.5;
+      }
+
+      .calendar {
+        display: grid;
+        gap: 8px;
+      }
+
+      .day {
+        display: grid;
+        grid-template-columns: 62px minmax(0, 1fr);
+        gap: 10px;
+        border-top: 1px solid var(--line);
+        padding-top: 9px;
+        font-size: 13px;
+      }
+
+      .day b {
+        color: var(--leaf);
+      }
+
+      @media (max-width: 1080px) {
         .masthead,
-        .workbench,
-        .console-prototype,
-        .timeline-layout {
+        .workspace,
+        .wizard,
+        .pack-cover,
+        .pack-body {
           grid-template-columns: 1fr;
         }
 
-        .shell {
-          padding: 18px;
-        }
-
-        .rail {
+        .intake {
+          position: static;
           min-height: auto;
         }
+      }
 
-        .main-panel,
-        .chat-panel,
-        .timeline-panel,
-        .canvas {
-          padding: 22px;
+      @media (max-width: 680px) {
+        .shell {
+          padding: 14px;
         }
 
-        .question-card {
-          min-height: 320px;
-        }
-
-        .quality-grid {
-          grid-template-columns: 1fr;
+        .intake,
+        .wizard,
+        .pack-cover,
+        .pack-body {
+          padding: 18px;
         }
       }
     </style>
@@ -573,251 +492,114 @@
     <main class="shell">
       <header class="masthead">
         <div>
-          <p class="eyebrow">Prototype review</p>
-          <h1>Step-by-step campaign intake</h1>
-          <p>Three possible 2026-grade UI directions for replacing the single brief field with a guided intake that asks one thing at a time and keeps progress visible.</p>
+          <p class="eyebrow">Selected direction</p>
+          <h1>Prototype 3: Calm Local Business Studio</h1>
+          <p>Designed for Vietnamese small businesses and restaurant marketers who need a guided brief and a campaign pack they can approve, delegate, and publish from.</p>
         </div>
-        <div class="status-pill">Static prototype, no backend changes</div>
+        <span class="pill">Fraunces + Manrope + Martian Mono</span>
       </header>
 
-      <nav class="prototype-tabs" aria-label="Prototype options">
-        <button class="tab" type="button" aria-selected="true" data-prototype="workbench">A. Operator Workbench</button>
-        <button class="tab" type="button" aria-selected="false" data-prototype="conversation">B. Guided Conversation</button>
-        <button class="tab" type="button" aria-selected="false" data-prototype="timeline">C. Timeline Studio</button>
-      </nav>
+      <section class="workspace">
+        <aside class="intake" aria-label="Campaign intake preview">
+          <div>
+            <p class="eyebrow">One answer at a time</p>
+            <h2>Build the brief like a local marketing studio.</h2>
+            <div class="progress"><span></span></div>
+            <ol class="steps">
+              <li class="done">Business name</li>
+              <li class="done">Industry</li>
+              <li class="done">Location</li>
+              <li class="done">Target audience</li>
+              <li class="done">Campaign goal</li>
+              <li class="done">Platforms</li>
+              <li class="current">Customer pain points</li>
+              <li>Content types</li>
+              <li>Calendar length</li>
+              <li>Constraints</li>
+            </ol>
+          </div>
+          <div class="note">
+            This direction is warm, practical, and professional enough for a real marketing manager, without looking like a notebook demo.
+          </div>
+        </aside>
 
-      <section class="prototype is-active" data-prototype-panel="workbench">
-        <div class="workbench">
-          <aside class="rail">
-            <div>
-              <p class="eyebrow">Recommended</p>
-              <h2>Operator Workbench</h2>
-              <div class="steps" data-step-list></div>
-            </div>
-            <div class="brief-card">
-              <strong>Why this direction</strong>
-              Dense enough for a serious capstone demo, but simple for restaurant owners. The left rail proves progress; the main panel keeps attention on one answer.
-            </div>
-          </aside>
-          <section class="main-panel">
-            <div>
-              <div class="progress-bar" aria-label="Progress">
-                <div class="progress-fill" data-progress-fill></div>
+        <section class="stage">
+          <section class="wizard" aria-label="Wizard preview">
+            <div class="question">
+              <p class="eyebrow">Question 7 of 10</p>
+              <h2>What pain points should the campaign solve?</h2>
+              <p>Capture the real buyer friction before generating strategy, content, and calendar recommendations.</p>
+              <label>Customer pain points
+                <input value="Lunch feels repetitive; dinner decisions are last-minute; delivery must stay crispy.">
+              </label>
+              <div class="chips">
+                <span>Website</span>
+                <span>Facebook</span>
+                <span>Instagram Reels</span>
+                <span>Zalo</span>
+                <span>7-day calendar</span>
+              </div>
+              <div class="actions">
+                <button class="btn" type="button">Back</button>
+                <button class="btn primary" type="button">Next question</button>
               </div>
             </div>
-            <div class="question-card">
-              <p class="question-count" data-question-count>Step 1 of 7</p>
-              <h2 class="question-title" data-question-title>What is the business name?</h2>
-              <p class="question-help" data-question-help>This anchors the campaign and makes every CTA specific.</p>
-              <div class="field-row" data-field-host></div>
-              <div class="chips" data-chip-host></div>
-            </div>
-            <div class="actions">
-              <button class="btn" type="button" data-back>Back</button>
-              <div class="summary-strip" data-summary-strip></div>
-              <button class="btn primary" type="button" data-next>Next question</button>
-            </div>
+            <aside class="mini-pack">
+              <p class="eyebrow">Live brief</p>
+              <h3>Corner Kitchen</h3>
+              <div><b>Industry</b>Restaurant</div>
+              <div><b>Location</b>District 1 office and apartment area</div>
+              <div><b>Audience</b>Office workers and nearby residents</div>
+              <div><b>Goal</b>Increase lunch and dinner visits this week</div>
+            </aside>
           </section>
-        </div>
-      </section>
 
-      <section class="prototype" data-prototype-panel="conversation">
-        <div class="console-prototype">
-          <section class="chat-panel">
-            <div class="chat-header">
+          <article class="pack" aria-label="Campaign pack preview">
+            <header class="pack-cover">
               <div>
-                <p class="eyebrow">Prototype B</p>
-                <h2>Guided Conversation</h2>
+                <p class="eyebrow">Marketing campaign pack</p>
+                <h2>Corner Kitchen Launch Week</h2>
+                <p>Position mac and cheese with spicy crispy chicken as the fast, satisfying local choice for District 1 office workers and nearby residents.</p>
               </div>
-              <span class="status-pill">5 of 7 captured</span>
-            </div>
-            <div class="messages">
-              <div class="message">Let's build this campaign one answer at a time. What is the business name?</div>
-              <div class="message user">Corner Kitchen</div>
-              <div class="message">What industry should I optimize for?</div>
-              <div class="message user">Restaurant</div>
-              <div class="message">Where does this campaign need to work locally?</div>
-              <div class="message user">Near offices and apartment buildings in District 1</div>
-              <div class="message">Who exactly should this campaign move?</div>
-            </div>
-            <div class="chat-input">
-              <input aria-label="Current answer" value="Office workers and nearby residents">
-              <button class="btn primary" type="button">Send</button>
-            </div>
-          </section>
-          <aside class="preview-panel">
-            <div class="preview-header">
-              <h2>Brief preview</h2>
-            </div>
-            <div class="snapshot-list">
-              <div class="snapshot"><small>Business</small>Corner Kitchen</div>
-              <div class="snapshot"><small>Industry</small>Restaurant</div>
-              <div class="snapshot"><small>Location</small>District 1 office and apartment area</div>
-              <div class="snapshot"><small>Audience</small>Office workers and nearby residents</div>
-              <div class="snapshot"><small>Next</small>Campaign goal, platforms, constraints</div>
-            </div>
-          </aside>
-        </div>
-      </section>
+              <div class="stats">
+                <div class="stat"><small>Manager score</small><b>86 / 100</b></div>
+                <div class="stat"><small>Calendar</small><b>7 days</b></div>
+                <div class="stat"><small>Channels</small><b>Website, Facebook, Instagram, Zalo</b></div>
+              </div>
+            </header>
 
-      <section class="prototype" data-prototype-panel="timeline">
-        <div class="timeline-layout">
-          <aside class="timeline-panel">
-            <p class="eyebrow">Prototype C</p>
-            <h2 class="question-title">Timeline Studio</h2>
-            <div class="timeline-steps">
-              <div class="timeline-step"><strong>01 Business</strong>Corner Kitchen</div>
-              <div class="timeline-step"><strong>02 Industry</strong>Restaurant</div>
-              <div class="timeline-step is-current"><strong>03 Location</strong>Needs input</div>
-              <div class="timeline-step"><strong>04 Audience</strong>Queued</div>
-              <div class="timeline-step"><strong>05 Goal</strong>Queued</div>
-              <div class="timeline-step"><strong>06 Platforms</strong>Queued</div>
-              <div class="timeline-step"><strong>07 Constraints</strong>Queued</div>
-            </div>
-          </aside>
-          <section class="canvas">
-            <div class="canvas-card">
-              <p class="eyebrow">Current prompt</p>
-              <h2>Where is this campaign happening?</h2>
-              <p>Location changes the channel plan, CTA, and proof style. A restaurant near offices needs different content than a tourist area or delivery-only kitchen.</p>
-              <div class="field-row">
-                <input aria-label="Location" value="Near office buildings and apartments in District 1">
+            <section class="pack-body">
+              <div class="card">
+                <small>Manager summary</small>
+                <h3>Simple reason to visit now</h3>
+                <p>Lead with a comfort-food hook, office lunch speed, and crispy delivery confidence. Keep the call to action specific: order today or visit this week.</p>
               </div>
-              <div class="quality-grid">
-                <div class="quality"><b>43%</b>Brief complete</div>
-                <div class="quality"><b>2</b>Risks found</div>
-                <div class="quality"><b>4</b>Questions left</div>
+              <div class="card">
+                <small>Content types</small>
+                <h3>Ready-to-produce assets</h3>
+                <ul>
+                  <li>Website landing page section</li>
+                  <li>Facebook post</li>
+                  <li>Instagram Reel</li>
+                  <li>Zalo broadcast</li>
+                  <li>Google Business Profile update</li>
+                </ul>
               </div>
-            </div>
-          </section>
-        </div>
+              <div class="card">
+                <small>Publishing sequence</small>
+                <h3>Short content calendar</h3>
+                <div class="calendar">
+                  <div class="day"><b>Day 1</b><span>Launch the local reason-to-try message.</span></div>
+                  <div class="day"><b>Day 2</b><span>Show crispy chicken texture in a Reel.</span></div>
+                  <div class="day"><b>Day 3</b><span>Publish lunch reminder for offices nearby.</span></div>
+                  <div class="day"><b>Day 4</b><span>Send Zalo dinner prompt with direct CTA.</span></div>
+                  <div class="day"><b>Day 5</b><span>Post proof, review, or kitchen shot.</span></div>
+                </div>
+              </div>
+            </section>
+          </article>
+        </section>
       </section>
     </main>
-
-    <script>
-      const steps = [
-        {
-          label: "Business name",
-          title: "What is the business name?",
-          help: "This anchors the campaign and makes every CTA specific.",
-          value: "Corner Kitchen",
-          type: "input",
-        },
-        {
-          label: "Industry",
-          title: "What industry are we optimizing for?",
-          help: "The agent changes examples, risks, and content types based on industry.",
-          value: "Restaurant",
-          type: "chips",
-          chips: ["Restaurant", "Cafe", "Retail", "Education", "Consulting"],
-        },
-        {
-          label: "Location",
-          title: "Where does this campaign need to work?",
-          help: "Use city, neighborhood, store area, delivery zone, or online market.",
-          value: "District 1, near offices and apartment buildings",
-          type: "input",
-        },
-        {
-          label: "Target audience",
-          title: "Who should this campaign move?",
-          help: "Be concrete. The output gets better when the audience sounds like a real buyer.",
-          value: "Office workers and nearby apartment residents",
-          type: "textarea",
-        },
-        {
-          label: "Campaign goal",
-          title: "What should happen after the campaign?",
-          help: "Pick the outcome the content should optimize toward.",
-          value: "Increase lunch and dinner visits this week",
-          type: "input",
-        },
-        {
-          label: "Platforms",
-          title: "Where will this campaign be used?",
-          help: "Select every channel that matters. The agent will plan content by platform.",
-          value: "Facebook, Instagram/Reels, Zalo, Google Business Profile",
-          type: "chips",
-          chips: ["Website", "Facebook", "Instagram/Reels", "TikTok", "Zalo", "Google Business Profile", "LinkedIn"],
-        },
-        {
-          label: "Constraints",
-          title: "Any rules, risks, or limitations?",
-          help: "Mention budget, claims to avoid, tone, promotion limits, or missing assets.",
-          value: "Low budget, no discount race, avoid guaranteed traffic claims",
-          type: "textarea",
-        },
-      ];
-
-      let activeStep = 0;
-
-      const stepList = document.querySelector("[data-step-list]");
-      const progressFill = document.querySelector("[data-progress-fill]");
-      const questionCount = document.querySelector("[data-question-count]");
-      const questionTitle = document.querySelector("[data-question-title]");
-      const questionHelp = document.querySelector("[data-question-help]");
-      const fieldHost = document.querySelector("[data-field-host]");
-      const chipHost = document.querySelector("[data-chip-host]");
-      const summaryStrip = document.querySelector("[data-summary-strip]");
-
-      function renderWizard() {
-        stepList.innerHTML = steps
-          .map((step, index) => `
-            <div class="step-row ${index === activeStep ? "is-current" : ""}">
-              <span class="step-dot">${index + 1}</span>
-              <span class="step-label">${step.label}</span>
-              <span class="step-meta">${index < activeStep ? "Done" : index === activeStep ? "Now" : "Next"}</span>
-            </div>
-          `)
-          .join("");
-
-        const step = steps[activeStep];
-        progressFill.style.width = `${((activeStep + 1) / steps.length) * 100}%`;
-        questionCount.textContent = `Step ${activeStep + 1} of ${steps.length}`;
-        questionTitle.textContent = step.title;
-        questionHelp.textContent = step.help;
-        fieldHost.innerHTML = "";
-        chipHost.innerHTML = "";
-
-        if (step.type === "textarea") {
-          fieldHost.innerHTML = `<textarea aria-label="${step.label}">${step.value}</textarea>`;
-        } else if (step.type === "input") {
-          fieldHost.innerHTML = `<input aria-label="${step.label}" value="${step.value}">`;
-        } else {
-          chipHost.innerHTML = step.chips
-            .map((chip) => `<button class="chip ${step.value.includes(chip) ? "is-on" : ""}" type="button">${chip}</button>`)
-            .join("");
-        }
-
-        summaryStrip.innerHTML = steps
-          .slice(0, activeStep)
-          .map((item) => `<span>${item.label}: ${item.value}</span>`)
-          .join("");
-      }
-
-      document.querySelector("[data-next]").addEventListener("click", () => {
-        activeStep = Math.min(activeStep + 1, steps.length - 1);
-        renderWizard();
-      });
-
-      document.querySelector("[data-back]").addEventListener("click", () => {
-        activeStep = Math.max(activeStep - 1, 0);
-        renderWizard();
-      });
-
-      document.querySelectorAll(".tab").forEach((tab) => {
-        tab.addEventListener("click", () => {
-          const key = tab.dataset.prototype;
-          document.querySelectorAll(".tab").forEach((item) => {
-            item.setAttribute("aria-selected", String(item === tab));
-          });
-          document.querySelectorAll(".prototype").forEach((panel) => {
-            panel.classList.toggle("is-active", panel.dataset.prototypePanel === key);
-          });
-        });
-      });
-
-      renderWizard();
-    </script>
   </body>
 </html>
